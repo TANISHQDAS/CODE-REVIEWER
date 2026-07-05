@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN — CodeReviewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 40px 20px;
+        }
+
+        body.dark-mode .login-page {
+            background: #0a0a0a;
+        }
+
+        .login-card {
+            border: 6px solid #000;
+            padding: 48px;
+            background: #ffffff;
+            box-shadow: 8px 8px 0 #000;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        body.dark-mode .login-card {
+            background: #1a1a1a;
+        }
+
+        .login-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 #000;
+        }
+
+        .login-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .login-subtitle {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 32px;
+        }
+
+        .error-box {
+            border: 6px solid #FF006E;
+            background: #FF006E;
+            color: white;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-weight: 700;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .form-field input {
+            width: 100%;
+            border: 6px solid #000;
+            padding: 14px;
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            background: #ffffff;
+            color: #000;
+            box-sizing: border-box;
+            box-shadow: inset 2px 2px 0 rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+
+        body.dark-mode .form-field input {
+            background: #2a2a2a;
+            color: #00D9FF;
+            border-color: #00D9FF;
+        }
+
+        .form-field input:focus {
+            outline: none;
+            background: #CCFF00;
+            border-color: #FF006E;
+            box-shadow: 0 0 0 6px #FFB703;
+        }
+
+        body.dark-mode .form-field input:focus {
+            background: #333;
+            color: #CCFF00;
+            border-color: #CCFF00;
+            box-shadow: 0 0 0 3px #8B00FF;
+        }
+
+        .login-btn {
+            width: 100%;
+            border: 6px solid #000;
+            padding: 16px;
+            background: #00D9FF;
+            color: #000;
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 #000;
+            transition: all 0.15s;
+        }
+
+        .login-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 #000;
+            background: #CCFF00;
+        }
+
+        .login-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .demo-box {
+            border: 6px solid #8B00FF;
+            background: #8B00FF;
+            color: white;
+            padding: 20px;
+            margin-top: 28px;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .demo-box h3 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .demo-box ul {
+            list-style: none;
+            font-size: 13px;
+            line-height: 1.8;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .demo-box li {
+            display: flex;
+            gap: 8px;
+        }
+
+        .demo-box strong {
+            font-weight: 700;
+            color: #CCFF00;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <h1 class="login-title">CODE<br>REVIEWER</h1>
+            <p class="login-subtitle">Unfiltered feedback</p>
+
+            {% if error %}
+            <div class="error-box">
+                ⚠️ {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST">
+                <div class="form-field">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="admin" 
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••" 
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-btn">LOGIN →</button>
+            </form>
+
+            <div class="demo-box">
+                <h3>📌 DEMO USERS</h3>
+                <ul>
+                    <li><strong>admin</strong> / password123</li>
+                    <li><strong>user</strong> / user123</li>
+                    <li><strong>dev</strong> / dev123</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Apply dark mode if saved
+        if (localStorage.getItem('dark-mode')) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
