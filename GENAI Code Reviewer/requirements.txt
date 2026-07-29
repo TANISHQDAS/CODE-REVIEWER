@@ -1,5 +1,0 @@
-Flask
-google-genai
-markdown
-pygments
-PyJWT

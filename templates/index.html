@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODE REVIEWER — Raw. Unfiltered. Real.</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Courier+Prime:wght@400;700&display=swap');
+    </style>
+</head>
+
+<body>
+    <!-- HEADER / NAV -->
+    <header class="brutal-header">
+        <div class="header-left">
+            <h1 class="logo-text">CODE<br>REVIEWER</h1>
+            <p class="tagline">AI that doesn't sugarcoat</p>
+        </div>
+        <div class="header-right">
+            <div class="user-badge">{{ username }}</div>
+            <button id="theme" class="theme-toggle">DARK</button>
+            <a href="{{ url_for('logout') }}" class="logout-link">LOGOUT</a>
+        </div>
+    </header>
+
+    <!-- MAIN BENTO GRID -->
+    <main class="bento-container">
+        
+        <!-- LARGE CODE EDITOR (spans 2 cols on desktop) -->
+        <section class="bento-item code-box">
+            <h2 class="section-title">PASTE YOUR CODE</h2>
+            <textarea id="codeEditor" class="code-textarea" placeholder="Drop your Python, JS, Go, Rust, whatever... We'll tell you what's wrong.">{{ code }}</textarea>
+            <input type="file" id="fileInput" accept=".py,.cpp,.c,.java,.js,.ts,.html,.css,.json,.php,.go,.rs,.cs,.kt,.swift" hidden>
+        </section>
+
+        <!-- BUTTON CLUSTER (asymmetric) -->
+        <div class="button-cluster">
+            <button id="reviewBtn" class="btn btn-review">REVIEW</button>
+            <button id="upload" class="btn btn-upload">UPLOAD</button>
+            <button id="clear" class="btn btn-clear">CLEAR</button>
+        </div>
+
+        <!-- AI REVIEW OUTPUT (tall, right side) -->
+        <section class="bento-item review-box">
+            <h2 class="section-title">GEMINI'S VERDICT</h2>
+            <div id="loading" class="loading-state">
+                <div class="brutal-spinner"></div>
+                <p>Analyzing...</p>
+            </div>
+            <div id="result" class="review-output">{{ result }}</div>
+        </section>
+
+        <!-- STATS BOXES (bottom row, varied sizes) -->
+        <section class="bento-item stats-small">
+            <div class="stat-header">PAGE VIEWS</div>
+            <div class="stat-number">{{ total_views }}</div>
+        </section>
+
+        <section class="bento-item stats-large" style="grid-column: span 1;">
+            <div class="stat-header">LINES REVIEWED</div>
+            <div class="stat-number">{{ total_lines }}</div>
+        </section>
+
+        <section class="bento-item stats-large">
+            <div class="stat-header">AVG SCORE</div>
+            <div class="stat-number">{{ avg_score }}/10</div>
+            <p class="stat-note">{% if avg_score >= 7 %}That's solid.{% elif avg_score >= 5 %}Room to improve.{% else %}Yikes.{% endif %}</p>
+        </section>
+    </main>
+
+    <!-- FOOTER / UTILITY -->
+    <footer class="brutal-footer">
+        <div class="footer-item">
+            <button id="copy" class="footer-btn">📋 COPY</button>
+            <button id="download" class="footer-btn">⬇️ DOWNLOAD</button>
+        </div>
+        <div class="footer-item footer-credit">
+            Built with <span class="spark">⚡</span> and caffeine. No AI fluff.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

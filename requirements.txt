@@ -1,0 +1,6 @@
+Flask
+google-genai
+markdown
+pygments
+PyJWT
+python-dotenv
