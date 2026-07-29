@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, send_from_directory
 from review import review_code
 import jwt
 import datetime
@@ -7,8 +7,13 @@ import json
 import os
 import re
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 app.secret_key = "your_secret_key_change_this_in_production"
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(os.path.join(root_dir, 'static'), filename)
 
 # Dummy users database
 USERS = {
